@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap | Öğrenci Asistanı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <div class="left-panel">
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+
+            <h2>Planla,<br>Tasarruf Et,<br>İyi Yaşa.</h2>
+            <p style="margin-top: 20px;">
+                Öğrenci Asistanı ile bütçeni ve sağlığını korumak artık çok kolay.
+                Hemen giriş yap ve haftalık planını oluştur.
+            </p>
+        </div>
+
+        <div class="right-panel">
+            <div class="form-header">
+                <h3>Tekrar Hoş Geldin! 👋</h3>
+                <span>Hesabına giriş yap ve maceraya devam et.</span>
+            </div>
+
+            <form method="post" action="/Account/Login">
+
+                <div class="input-group">
+                    <input type="email" name="email" class="form-control-custom" placeholder="Okul E-postan" required>
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" class="form-control-custom" placeholder="Şifren" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <button type="submit" class="btn-primary-custom">
+                    Giriş Yap <i class="fa-solid fa-arrow-right-to-bracket ms-2"></i>
+                </button>
+
+                <div class="register-link">
+                    Hesabın yok mu? <a href="/Account/Register">Hemen Kayıt Ol</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

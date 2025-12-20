@@ -1,0 +1,113 @@
+/* --- MODERN HERO SECTION STYLES --- */
+
+/* Arka plan için modern bir gradyan */
+.hero-wrapper {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0;
+}
+
+/* Baþlýktaki kelimeleri renklendirme */
+.gradient-text {
+    background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+/* Yüzen Emojiler (Animasyonlu) */
+.floating-icon {
+    font-size: 4rem;
+    position: absolute;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+    animation: float 6s ease-in-out infinite;
+    z-index: 1;
+}
+
+/* Animasyon Tanýmý: Yukarý aþaðý sallanma */
+@keyframes float {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+/* Farklý hýzlarda hareket etsinler diye gecikme ekliyoruz */
+.delay-1 {
+    animation-delay: 0s;
+}
+
+.delay-2 {
+    animation-delay: 2s;
+}
+
+.delay-3 {
+    animation-delay: 4s;
+}
+
+/* Özellik Kartlarý */
+.feature-box {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px); /* Buzlu cam etkisi */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    height: 100%;
+}
+
+    .feature-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        border-color: #4facfe;
+    }
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    background: #eef2f3;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #007bff;
+    transition: all 0.3s;
+}
+
+.feature-box:hover .feature-icon {
+    background: #007bff;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+/* Aksiyon Butonu */
+.btn-hero {
+    background: linear-gradient(90deg, #007bff 0%, #00d2ff 100%);
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
+    transition: transform 0.3s;
+}
+
+    .btn-hero:hover {
+        transform: scale(1.05);
+        color: white;
+        box-shadow: 0 15px 25px rgba(0, 123, 255, 0.4);
+    }
+
+

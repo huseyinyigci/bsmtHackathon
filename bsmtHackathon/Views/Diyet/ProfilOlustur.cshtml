@@ -1,0 +1,100 @@
+﻿@model bsmtHackathon.Models.DiyetProfilViewModel
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">🥗 Kişisel Diyet ve Yemek Planlayıcı</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="PlanOlustur" method="post">
+
+                <h5 class="text-secondary border-bottom pb-2">👤 Vücut ve Hedef Bilgileri</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Boy (cm)</label>
+                        <input asp-for="Boy" class="form-control" type="number" placeholder="175" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Kilo (kg)</label>
+                        <input asp-for="Kilo" class="form-control" type="number" placeholder="70" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Cinsiyet</label>
+                        <select asp-for="Cinsiyet" class="form-select">
+                            <option value="Erkek">Erkek</option>
+                            <option value="Kadın">Kadın</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Hedefin Ne?</label>
+                        <select asp-for="Hedef" class="form-select">
+                            <option value="Kilo Vermek">Kilo Vermek (Yağ Yakımı)</option>
+                            <option value="Kilo Almak">Kilo Almak (Kas Kazanımı)</option>
+                            <option value="Formu Korumak">Formu Korumak</option>
+                            <option value="Ekonomik Beslenmek">Bütçe Dostu Beslenmek</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Günlük Aktivite Düzeyi</label>
+                        <select asp-for="Aktivite" class="form-select">
+                            <option value="Hareketsiz">Hareketsiz (Masa başı)</option>
+                            <option value="Hafif Aktif">Hafif Aktif (Haftada 1-2 gün spor)</option>
+                            <option value="Orta Aktif">Orta Aktif (Haftada 3-4 gün spor)</option>
+                            <option value="Çok Aktif">Çok Aktif (Her gün spor/fiziksel iş)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h5 class="text-secondary border-bottom pb-2 mt-4">🍽️ Tercihler ve Kısıtlar</h5>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Haftalık Bütçe (TL)</label>
+                        <input asp-for="Butce" class="form-control" type="number" placeholder="Örn: 2000" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Günde Kaç Öğün Yersin?</label>
+                        <input asp-for="OgunSayisi" class="form-control" type="number" value="3" min="2" max="6" />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-danger">Alerjiler veya Hassasiyetler</label>
+                    <input asp-for="Alerjiler" class="form-control" placeholder="Örn: Yer fıstığı, Gluten, Laktoz, Domates..." />
+                    <small class="text-muted">Yoksa boş bırakabilirsin.</small>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">En Sevdiğin Yemekler/Besinler</label>
+                        <textarea asp-for="Sevilenler" class="form-control" rows="2" placeholder="Örn: Tavuk, Makarna, Brokoli, Çikolata..."></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Asla Yemediklerin</label>
+                        <textarea asp-for="Sevilmeyenler" class="form-control" rows="2" placeholder="Örn: Bamya, Pırasa, Sakatat..."></textarea>
+                    </div>
+                </div>
+
+                <h5 class="text-secondary border-bottom pb-2 mt-4">🏠 Mutfak Envanteri</h5>
+                <div class="mb-3">
+                    <label class="form-label">Mevcut Malzemeler (Dolaptakiler)</label>
+                    <textarea asp-for="MevcutEnvanter" class="form-control" rows="3" placeholder="Örn: 5 yumurta, yarım paket pirinç, 2 soğan, biraz salça..."></textarea>
+                    <small class="text-muted">Yapay zeka öncelikle bu malzemeleri bitirmeye çalışacak.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Mutfak Ekipmanların</label>
+                    <input asp-for="Ekipmanlar" class="form-control" placeholder="Örn: Fırın yok, sadece ocak ve blender var..." />
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        🚀 Yapay Zeka ile Kişisel Planımı Oluştur
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,170 @@
+﻿@model bsmtHackathon.Models.DiyetPlanSonucViewModel
+@{
+    var profil = ViewBag.ProfilVerisi as bsmtHackathon.Models.DiyetProfilViewModel;
+    // En güncel envanter verisi: Ya modelden gelir (güncelleme sonrası) ya da profilden (ilk açılış)
+    var gosterilecekEnvanter = !string.IsNullOrEmpty(Model?.GuncelEnvanter) ? Model.GuncelEnvanter : profil?.MevcutEnvanter;
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+
+        <div class="col-lg-3 mb-4">
+
+            <div class="card shadow-lg border-0 mb-4 bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-box-open me-2"></i>Mutfak Envanteri</h5>
+
+                    <form asp-action="PlanOlustur" method="post">
+                        <input type="hidden" name="Boy" value="@profil?.Boy" />
+                        <input type="hidden" name="Kilo" value="@profil?.Kilo" />
+                        <input type="hidden" name="Hedef" value="@profil?.Hedef" />
+                        <input type="hidden" name="Butce" value="@profil?.Butce" />
+                        <input type="hidden" name="Alerjiler" value="@profil?.Alerjiler" />
+
+                        <div class="mb-3">
+                            <label class="small fw-bold text-white-50">Güncel Stok (Otomatik Güncellenir)</label>
+                            <textarea name="MevcutEnvanter" class="form-control bg-white text-dark fw-bold" rows="5">@gosterilecekEnvanter</textarea>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="small fw-bold text-white-50">Manuel Durum Bildir</label>
+                            <input type="text" name="AcilDurumNotu" class="form-control form-control-sm" placeholder="Örn: 2 yumurta kırıldı...">
+                        </div>
+
+                        <button type="submit" class="btn btn-light text-primary w-100 fw-bold btn-sm">
+                            <i class="fas fa-sync-alt me-1"></i> Stok Güncelle & Planla
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-success text-white fw-bold">
+                    <i class="fas fa-shopping-cart me-2"></i>Alışveriş Listesi
+                </div>
+
+                <div class="card-body p-0">
+                    <form asp-action="PlanOlustur" method="post">
+                        <input type="hidden" name="MevcutEnvanter" value="@gosterilecekEnvanter" />
+                        <input type="hidden" name="Boy" value="@profil?.Boy" />
+                        <input type="hidden" name="Kilo" value="@profil?.Kilo" />
+                        <input type="hidden" name="Hedef" value="@profil?.Hedef" />
+                        <input type="hidden" name="Butce" value="@profil?.Butce" />
+
+                        <ul class="list-group list-group-flush" style="max-height: 400px; overflow-y: auto;">
+                            @if (Model.AlisverisListesi != null && Model.AlisverisListesi.Count > 0)
+                            {
+                                foreach (var urun in Model.AlisverisListesi)
+                                {
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="SatinAlinanlar" value="@urun.Urun (@urun.Miktar @urun.Birim)" id="shop-@urun.Urun">
+                                            <label class="form-check-label stretched-link" for="shop-@urun.Urun">
+                                                @urun.Urun <span class="badge bg-light text-dark border ms-1">@urun.Miktar @urun.Birim</span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                }
+                                <li class="list-group-item bg-light p-2">
+                                    <button type="submit" class="btn btn-success w-100 fw-bold">
+                                        <i class="fas fa-check-double me-1"></i> Seçilenleri Envantere Ekle
+                                    </button>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="list-group-item text-center text-muted">Liste boş veya her şey alındı!</li>
+                            }
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            @if (ViewBag.AiResponse != null && ViewBag.AiResponse.ToString().Contains("GÜNCELLEME"))
+            {
+                <div class="alert alert-info shadow-sm">
+                    <i class="fas fa-info-circle me-2"></i> Envanter ve plan güncellendi!
+                </div>
+            }
+
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                @for (int i = 0; i < Model.Plan.Count; i++)
+                {
+                    <li class="nav-item">
+                        <button class="nav-link @(i == 0 ? "active" : "") fw-bold" id="pills-@i-tab" data-bs-toggle="pill" data-bs-target="#pills-@i" type="button">
+                            @Model.Plan[i].Gun
+                        </button>
+                    </li>
+                }
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+                @for (int i = 0; i < Model.Plan.Count; i++)
+                {
+                    var gun = Model.Plan[i];
+                    <div class="tab-pane fade @(i == 0 ? "show active" : "")" id="pills-@i">
+                        <div class="row">
+                            @foreach (var ogun in gun.Ogunler)
+                            {
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100 shadow-sm border-0 hover-effect">
+                                        <div class="card-header bg-white border-0 d-flex justify-content-between">
+                                            <span class="badge bg-primary">@ogun.OgunAdi</span>
+                                            <small class="text-muted">@ogun.Kalori kcal</small>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bold">@ogun.YemekAdi</h5>
+
+                                            <div class="mb-3">
+                                                @foreach (var malz in ogun.Malzemeler)
+                                                {
+                                                    <span class="badge bg-light text-dark border me-1">@malz.Ad @malz.Miktar @malz.Birim</span>
+                                                }
+                                            </div>
+                                            <p class="small text-muted fst-italic">@ogun.Tarif</p>
+                                        </div>
+
+                                        <div class="card-footer bg-white border-0">
+                                            <form asp-action="PlanOlustur" method="post">
+                                                <input type="hidden" name="MevcutEnvanter" value="@gosterilecekEnvanter" />
+                                                <input type="hidden" name="Boy" value="@profil?.Boy" />
+                                                <input type="hidden" name="Kilo" value="@profil?.Kilo" />
+                                                <input type="hidden" name="Hedef" value="@profil?.Hedef" />
+                                                <input type="hidden" name="Butce" value="@profil?.Butce" />
+
+                                                @{
+                                                    var malzemeListesi = string.Join(", ", ogun.Malzemeler.Select(m => $"{m.Ad} ({m.Miktar} {m.Birim})"));
+                                                    var yemekBilgisi = $"{ogun.YemekAdi} - İçindekiler: {malzemeListesi}";
+                                                }
+                                                <input type="hidden" name="YenilenYemekBilgisi" value="@yemekBilgisi" />
+
+                                                <button type="submit" class="btn btn-outline-success w-100 btn-sm fw-bold hover-green">
+                                                    <i class="fas fa-utensils me-2"></i> Bu Öğünü Yedim (Stoktan Düş)
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-effect:hover {
+        transform: translateY(-3px);
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+
+    .hover-green:hover {
+        background-color: #198754;
+        color: white;
+    }
+</style>

@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol | Öğrenci Asistanı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/register.css">
+</head>
+<body>
+
+    <div class="register-wrapper">
+
+        <div class="form-panel">
+            <div class="form-header">
+                <h3>Aramıza Katıl 🚀</h3>
+                <p>Formu doldur, bütçeni yönetmeye hemen başla.</p>
+            </div>
+
+            <form method="post" action="/Account/Register">
+
+                <div class="input-group">
+                    <input type="text" name="ad" class="form-control-custom" placeholder="Adın Soyadın" required>
+                    <i class="fa-regular fa-user"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" name="email" class="form-control-custom" placeholder="Okul E-postan" required>
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" class="form-control-custom" placeholder="Güçlü bir şifre belirle" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="confirmPassword" class="form-control-custom" placeholder="Şifreni tekrarla" required>
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+
+                <button type="submit" class="btn-register">
+                    Hesap Oluştur <i class="fa-solid fa-user-plus ms-2"></i>
+                </button>
+
+                <div class="login-link">
+                    Zaten bir hesabın var mı? <a href="/Account/Login">Giriş Yap</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="info-panel">
+            <div class="circle-deco" style="width: 150px; height: 150px; top: -20px; right: -20px;"></div>
+            <div class="circle-deco" style="width: 100px; height: 100px; bottom: 50px; left: 20px;"></div>
+
+            <h2>Akıllı<br>Alışverişin<br>Adresi.</h2>
+            <p style="margin-top: 20px;">
+                "Bugün ne yesem?", "Param yetecek mi?" dertlerine son.
+                Seni tanıyan, sana özel listeler hazırlayan asistanın hazır.
+            </p>
+
+            <div style="margin-top: 40px; font-size: 3rem;">
+                🥗 🛒 🎓
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
